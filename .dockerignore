@@ -1,0 +1,5 @@
+deploy/
+.idea/
+.github/
+test-events/
+releasenotes/

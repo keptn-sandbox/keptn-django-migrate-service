@@ -1,9 +1,9 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="go build example.com/keptn-service-template-go" type="GoApplicationRunConfiguration" factoryName="Go Application">
-    <module name="keptn-service-template-go" />
+  <configuration default="false" name="go build example.com/keptn-django-migrate-service" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <module name="keptn-django-migrate-service" />
     <working_directory value="$PROJECT_DIR$" />
     <kind value="PACKAGE" />
-    <package value="example.com/keptn-service-template-go" />
+    <package value="example.com/keptn-django-migrate-service" />
     <directory value="$PROJECT_DIR$/" />
     <method v="2" />
   </configuration>

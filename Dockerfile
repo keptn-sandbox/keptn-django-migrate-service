@@ -5,7 +5,7 @@ FROM golang:1.13.7-alpine as builder
 
 RUN apk add --no-cache gcc libc-dev git
 
-WORKDIR /src/keptn-service-template-go
+WORKDIR /src/keptn-django-migrate-service
 
 ARG version=develop
 ENV VERSION="${version}"
@@ -32,12 +32,16 @@ COPY . .
 
 # Build the command inside the container.
 # (You may fetch or manage dependencies here, either manually or with a tool like "godep".)
-RUN GOOS=linux go build -ldflags '-linkmode=external' $BUILDFLAGS -v -o keptn-service-template-go
+RUN GOOS=linux go build -ldflags '-linkmode=external' $BUILDFLAGS -v -o keptn-django-migrate-service
 
 # Use a Docker multi-stage build to create a lean production image.
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
 FROM alpine:3.11
 ENV ENV=production
+
+ARG KUBE_VERSION=1.16.5
+RUN wget -q https://storage.googleapis.com/kubernetes-release/release/v$KUBE_VERSION/bin/linux/amd64/kubectl -O /bin/kubectl && \
+  chmod +x /bin/kubectl
 
 # Install extra packages
 # See https://github.com/gliderlabs/docker-alpine/issues/136#issuecomment-272703023
@@ -51,7 +55,7 @@ ARG version=develop
 ENV VERSION="${version}"
 
 # Copy the binary to the production image from the builder stage.
-COPY --from=builder /src/keptn-service-template-go/keptn-service-template-go /keptn-service-template-go
+COPY --from=builder /src/keptn-django-migrate-service/keptn-django-migrate-service /keptn-django-migrate-service
 
 EXPOSE 8080
 
@@ -64,4 +68,4 @@ ENV GOTRACEBACK=all
 #build-uncomment ENTRYPOINT ["/entrypoint.sh"]
 
 # Run the web service on container startup.
-CMD ["/keptn-service-template-go"]
+CMD ["/keptn-django-migrate-service"]
