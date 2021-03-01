@@ -11,13 +11,13 @@ This keptn-service executes migrations for a Django deployment. Technically spea
 
 *Please fill in your versions accordingly*
 
-| Keptn Version    | [keptn-django-migrate-service Docker Image](https://hub.docker.com/r/christiankreuzbergerdtx/keptn-django-migrate-service/tags) |
+| Keptn Version    | [keptn-django-migrate-service Docker Image](https://hub.docker.com/r/keptnsandbox/keptn-django-migrate-service/tags) |
 |:----------------:|:----------------------------------------:|
-|       0.8.0      | christiankreuzbergerdtx/keptn-django-migrate-service:0.1.0 |
+|       0.8.0      | keptnsandbox/keptn-django-migrate-service:0.1.0 |
 
 ## How to use it
 
-Add a step called `migrate` in your shipyard.yaml, e.g.:
+Adapt your shipyard and add a step called `migrate` in your shipyard.yaml (to every stage) between `deployment` and `test`, e.g.:
 ```
 apiVersion: "spec.keptn.sh/0.2.0"
 kind: "Shipyard"
@@ -32,7 +32,11 @@ spec:
             - name: "deployment"
               properties:
                 deploymentstrategy: "direct"
+
+
             - name: "migrate"
+
+
             - name: "test"
               properties:
                 teststrategy: "functional"
@@ -40,13 +44,20 @@ spec:
             - name: "release"
 ```
 
+**Note**: It's currently not possible to rollback migrations (e.g., on a failed deployment).
+
 ## Installation
 
 The *keptn-django-migrate-service* can be installed as a part of [Keptn's uniform](https://keptn.sh), e.g.:
 
+```console
+kubectl apply -f https://raw.githubusercontent.com/keptn-sandbox/keptn-django-migrate-service/release-0.1.0/deploy/service.yaml
+```
+
 ### Deploy in your Kubernetes cluster
 
 To deploy the current version of the *keptn-django-migrate-service* in your Keptn Kubernetes cluster, apply the [`deploy/service.yaml`](deploy/service.yaml) file:
+
 
 ```console
 kubectl apply -f deploy/service.yaml
@@ -64,7 +75,7 @@ kubectl -n keptn get pods -l run=keptn-django-migrate-service
 Adapt and use the following command in case you want to up- or downgrade your installed version (specified by the `$VERSION` placeholder):
 
 ```console
-kubectl -n keptn set image deployment/keptn-django-migrate-service keptn-django-migrate-service=christiankreuzbergerdtx/keptn-django-migrate-service:$VERSION --record
+kubectl -n keptn set image deployment/keptn-django-migrate-service keptn-django-migrate-service=keptnsandbox/keptn-django-migrate-service:$VERSION --record
 ```
 
 ### Uninstall
@@ -104,9 +115,9 @@ If you want to get more insights into processing those CloudEvents or even defin
 
 * Build the binary: `go build -ldflags '-linkmode=external' -v -o keptn-django-migrate-service`
 * Run tests: `go test -race -v ./...`
-* Build the docker image: `docker build . -t christiankreuzbergerdtx/keptn-django-migrate-service:dev` (Note: Ensure that you use the correct DockerHub account/organization)
-* Run the docker image locally: `docker run --rm -it -p 8080:8080 christiankreuzbergerdtx/keptn-django-migrate-service:dev`
-* Push the docker image to DockerHub: `docker push christiankreuzbergerdtx/keptn-django-migrate-service:dev` (Note: Ensure that you use the correct DockerHub account/organization)
+* Build the docker image: `docker build . -t keptnsandbox/keptn-django-migrate-service:dev` (Note: Ensure that you use the correct DockerHub account/organization)
+* Run the docker image locally: `docker run --rm -it -p 8080:8080 keptnsandbox/keptn-django-migrate-service:dev`
+* Push the docker image to DockerHub: `docker push keptnsandbox/keptn-django-migrate-service:dev` (Note: Ensure that you use the correct DockerHub account/organization)
 * Deploy the service using `kubectl`: `kubectl apply -f deploy/`
 * Delete/undeploy the service using `kubectl`: `kubectl delete -f deploy/`
 * Watch the deployment using `kubectl`: `kubectl -n keptn get deployment keptn-django-migrate-service -o wide`
