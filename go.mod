@@ -1,4 +1,4 @@
-module github.com/christian-kreuzberger-dtx/keptn-django-migrate-service
+module github.com/keptn-sandbox/keptn-django-migrate-service
 
 go 1.13
 

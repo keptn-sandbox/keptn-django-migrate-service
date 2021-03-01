@@ -2,7 +2,7 @@ apiVersion: skaffold/v1beta13
 kind: Config
 build:
   artifacts:
-    - image: christiankreuzbergerdtx/keptn-django-migrate-service
+    - image: keptnsandbox/keptn-django-migrate-service
       docker:
         dockerfile: Dockerfile
         buildArgs:

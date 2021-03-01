@@ -52,14 +52,14 @@ spec:
     spec:
       containers:
         - name: keptn-django-migrate-service
-          image: christiankreuzbergerdtx/keptn-django-migrate-service:latest # Todo: Replace this with your image name
+          image: keptnsandbox/keptn-django-migrate-service:0.1.0
           ports:
             - containerPort: 8080
           env:
             - name: CONFIGURATION_SERVICE
               value: 'http://configuration-service:8080'
         - name: distributor
-          image: keptn/distributor:0.8.0-alpha
+          image: keptn/distributor:0.8.0-rc1
           livenessProbe:
             httpGet:
               path: /health
