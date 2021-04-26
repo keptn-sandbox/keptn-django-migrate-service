@@ -13,7 +13,9 @@ This keptn-service executes migrations for a Django deployment. Technically spea
 
 | Keptn Version    | [keptn-django-migrate-service Docker Image](https://hub.docker.com/r/keptnsandbox/keptn-django-migrate-service/tags) |
 |:----------------:|:----------------------------------------:|
-|       0.8.0      | keptnsandbox/keptn-django-migrate-service:0.1.0 |
+|     0.8.0,0.8.1  | keptnsandbox/keptn-django-migrate-service:0.1.0 |
+|       0.8.2      | keptnsandbox/keptn-django-migrate-service:0.2.0 |
+
 
 ## How to use it
 
