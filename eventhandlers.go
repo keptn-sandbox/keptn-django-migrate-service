@@ -38,11 +38,16 @@ func HandleMigrateTriggeredEvent(myKeptn *keptnv2.Keptn, incomingEvent cloudeven
 
 	namespace := fmt.Sprintf("%s-%s", data.Project, data.Stage)
 
+	myKeptn.SendTaskStatusChangedEvent(&keptnv2.EventData{
+		Message: "Running python manage.py migrate --noinput",
+	}, ServiceName)
+
 	str, err := keptn.ExecuteCommand("kubectl", []string{
 		"-n", namespace,
 		"exec", "deployment/" + data.Service, "--",
 		"python", "manage.py", "migrate", "--noinput"})
 
+	// log output of command
 	log.Print(str)
 
 	if err != nil {
