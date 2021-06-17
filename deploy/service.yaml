@@ -49,6 +49,8 @@ spec:
     metadata:
       labels:
         run: keptn-django-migrate-service
+        app.kubernetes.io/name: keptn-django-migrate-service
+        app.kubernetes.io/version: 0.1.0
     spec:
       containers:
         - name: keptn-django-migrate-service
@@ -59,7 +61,7 @@ spec:
             - name: CONFIGURATION_SERVICE
               value: 'http://configuration-service:8080'
         - name: distributor
-          image: keptn/distributor:0.8.3
+          image: keptn/distributor:0.8.4
           livenessProbe:
             httpGet:
               path: /health
@@ -83,6 +85,32 @@ spec:
               value: 'sh.keptn.event.migrate.triggered'
             - name: PUBSUB_RECIPIENT
               value: '127.0.0.1'
+            - name: VERSION
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: 'metadata.labels[''app.kubernetes.io/version'']'
+            - name: K8S_DEPLOYMENT_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: 'metadata.labels[''app.kubernetes.io/name'']'
+            - name: K8S_POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
+            - name: K8S_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+            - name: K8S_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: spec.nodeName
+
       serviceAccountName: keptn-django-migrate-service
 ---
 # Expose keptn-django-migrate-service via Port 8080 within the cluster
