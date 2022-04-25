@@ -1,3 +1,7 @@
+# This repo is not maintained
+
+Please use [job-executor-service](https://github.com/keptn-contrib/job-executor-service) instead.
+
 # keptn-django-migrate-service
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/keptn-sandbox/keptn-django-migrate-service)
 [![Go Report Card](https://goreportcard.com/badge/github.com/keptn-sandbox/keptn-django-migrate-service)](https://goreportcard.com/report/github.com/keptn-sandbox/keptn-django-migrate-service)
